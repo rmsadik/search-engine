@@ -1,0 +1,20 @@
+<html><head>
+<script src="jquery-1.4.2.min.js"></script>
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<title>Instant Search - HTML Based</title>
+</head>
+<body>
+Simpsons Search: <input type="text" id="term" />
+<div id="results">
+</div>
+<script>
+$(document).ready(function() {
+$('#term').keyup(function() {
+  $.get('search_html.php?q='+escape($('#term').val()), function(data) {
+    $('#results').html(data);
+  } );
+} );
+} );
+</script>
+</body>
+</html>

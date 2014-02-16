@@ -1,0 +1,30 @@
+<html><head>
+<script src="jquery-1.4.2.min.js"></script>
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<title>Instant Search - HTML Based</title>
+</head>
+<body>
+Simpsons Search: <input type="text" id="term" />
+<table id="results">
+</table>
+<script>
+$(document).ready( function() {
+$('#term').keyup( function() {
+  $.get('search_xml.php?q='+escape($('#term').val()), function(data) {
+	html = '<table id="results">';
+	$(data).find('episode').each( function() {
+		var ep = $(this);
+		html += '<tr><td class="episode"><b>'+ep.attr('title')+'</b>&nbsp;';
+		html += 'Season '+ep.attr('season')+'&nbsp;';
+		html += 'Episode '+ep.attr('episode')+'&nbsp;';
+		html += 'Aired '+ep.attr('aired')+'</td></tr>';
+		html += '<tr><td class="summary">'+ep.text()+'</td></tr>';
+	} );
+	html += '</html>';
+	$('#results').replaceWith( html );
+  } );
+} );
+} );
+</script>
+</body>
+</html>

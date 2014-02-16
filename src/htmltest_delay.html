@@ -1,0 +1,29 @@
+<html><head>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<script src="jquery-1.4.2.min.js"></script>
+<title>Instant Search - HTML Based With Delay</title>
+</head>
+<body>
+Simpsons Search: <input type="text" id="term" />
+<div id="results">
+</div>
+<script>
+delayTimer = null;
+
+function getResults() {
+  $.get('search_html.php?q='+escape($('#term').val()), function(data) {
+    $('#results').html(data);
+  } );
+  delayTimer = null;
+}
+
+$(document).ready(function() {
+$('#term').keyup(function() {
+  if ( delayTimer )
+     window.clearTimeout( delayTimer );
+  delayTimer = window.setTimeout( getResults, 200 );
+} );
+} );
+</script>
+</body>
+</html>
